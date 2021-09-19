@@ -23,6 +23,8 @@ const app=express();
 app.use(cors());
 app.use(express.json());
 
+app.post('/',(req,res)=>res.json('everything is fine'))
+
 app.post('/signin',(req,res)=>signin.handleSignin(req,res,db,bcrypt))
 
 app.post('/register',(req,res)=>register.handleRegister(req,res,db,bcrypt))
