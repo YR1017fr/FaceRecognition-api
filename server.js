@@ -11,11 +11,8 @@ const image=require('./controllers/image');
 const db=knex({
     client: 'pg',
     connection: {
-      host : 'postgresql-contoured-64795',
-      port : 5432,
-      user : 'postgres',
-      password : 'alex134679852',
-      database : 'smartbrain'
+      host : 'process.env.DATABASE_URL',
+      ssl:'true'
     }
   });
 
