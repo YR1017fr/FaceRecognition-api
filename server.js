@@ -27,7 +27,13 @@ const app=express();
 app.use(cors());
 app.use(express.json());
 
-app.get('/',(req,res)=>res.json('everything is fine'))
+app.get('/',(req,res)=>{
+  return db.select('*').from('users')                      
+    .then(user=>{
+      res.json(user[0])
+    })
+    .catch(err=>res.status(400).json('unable to get uesr'))
+})
 
 app.post('/signin',(req,res)=>signin.handleSignin(req,res,db,bcrypt))
 
