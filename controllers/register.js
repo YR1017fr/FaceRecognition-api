@@ -5,22 +5,20 @@ const handleRegister=(req,res,db,bcrypt)=>{
     }
     bcrypt.genSalt(10, function(err, salt) {
         bcrypt.hash(password, salt, function(err, hash) {
-            db.transaction(trx=>{
-                trx.insert({
-                    hash:hash,
-                    email:email
-                })
+            db.transaction(trx =>{
+                trx.insert({hash,email})
                 .into('login')
-                .returning('email')
-                .then(loginemail=>{
+                .returning(['email','id'])
+                .then(loginemail =>{
                     return trx('users')
                         .returning('*')
                         .insert({
-                            name:name,
-                            email:loginemail[0],
+                            name,
+                            id:loginemail[0].id,
+                            email:loginemail[0].email,
                             joined:new Date()
                         })
-                        .then(user=>{
+                        .then(user =>{
                             res.json(user[0]);
                         })            
                 })
@@ -32,6 +30,6 @@ const handleRegister=(req,res,db,bcrypt)=>{
     });
     
 }
-module.exports={
-    handleRegister:handleRegister
+module.exports = {
+    handleRegister
 }
