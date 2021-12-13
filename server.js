@@ -14,7 +14,8 @@ var reqTimer = setTimeout(function wakeUp() {
   });
   return reqTimer = setTimeout(wakeUp, 1200000);
 }, 1200000);
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0; 
+
+NODE_TLS_REJECT_UNAUTHORIZED = '0'
 const db=knex({
     client: 'pg',
     connection: {
@@ -25,7 +26,7 @@ const db=knex({
     }
   });
 
-const app=express();
+const app = express();
 app.use(cors());
 app.use(express.json());
 
@@ -45,11 +46,10 @@ app.get('/profile/:id',(req,res)=>profile.handleProfile(req,res,db))
 
 app.put('/image',(req,res)=>image.handleImage(req,res,db))
 
-
 app.post('/imageurl',(req,res)=>image.handleApiCall(req,res))
 
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 const host = '0.0.0.0';;
 app.listen(port,host, () => {
     console.log(`App is running on port ${ port }`);
