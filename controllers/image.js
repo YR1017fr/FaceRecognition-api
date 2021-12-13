@@ -13,10 +13,10 @@ const handleApiCall = (req, res) =>{
         metadata,
         (err, response) => {
             if (err) {
-                throw new Error(err);
+                return console.log(err);
             }
             if (response.status.code !== 10000) {
-                throw new Error("Post model outputs failed, status: " + response.status.description);
+                return res.json('無效網址')
             }
             res.json(response);
         }
@@ -32,7 +32,7 @@ const handleImage=(req,res,db)=>{
     .then(entries=>{
         res.json(entries[0])
     })
-    .catch(err=>res.status(400).json('unable to get entries'))
+    .catch(err =>res.status(400).json('unable to get entries'))
 }
 
 module.exports={
