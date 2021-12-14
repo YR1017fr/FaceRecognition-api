@@ -7,13 +7,6 @@ const register = require('./controllers/register');
 const signin = require('./controllers/signin');
 const image = require('./controllers/image');
 
-var reqTimer = setTimeout(function wakeUp() {
-  request("https://nameless-gorge-19527.herokuapp.com", function() {
-     console.log("WAKE UP DYNO");
-  });
-  return reqTimer = setTimeout(wakeUp, 1200000);
-}, 1200000);
-
 NODE_TLS_REJECT_UNAUTHORIZED = '0'
 const db = knex({
     client:'pg',
