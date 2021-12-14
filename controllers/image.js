@@ -11,11 +11,11 @@ const handleApiCall = (req, res) =>{
             inputs: [{data: {image: {url: req.body.input}}}]
         },
         metadata,
-        (err, response) => {
-            if (err) {
+        (err, response) =>{
+            if (err){
                 return console.log(err);
             }
-            if (response.status.code !== 10000) {
+            if (response.status.code !== 10000){
                 return res.json('無效網址')
             }
             res.json(response);
@@ -24,18 +24,18 @@ const handleApiCall = (req, res) =>{
 }
 
 
-const handleImage=(req,res,db)=>{
+const handleImage = (req, res, db) =>{
     const {id} = req.body;
     db('users').where('id','=',id)
     .increment('entries',1)
     .returning('entries')
-    .then(entries=>{
+    .then(entries =>{
         res.json(entries[0])
     })
     .catch(err =>res.status(400).json('unable to get entries'))
 }
 
-module.exports={
-    handleImage:handleImage,
-    handleApiCall:handleApiCall
+module.exports = {
+    handleImage,
+    handleApiCall
 }
